@@ -35,7 +35,7 @@ module.exports = {
       exposes: {
         "./Header": "./src/components/Header",
       },
-      shared: ["react", "react-dom"],
+      shared: require("./package.json").dependencies,
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "src", "index.html"),
