@@ -1,8 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import Header from "./components/Header";
 
-import "./App.css";
+const App = () => <Header>Hi there, I'm React from Webpack 5.</Header>;
 
-const App = () => <h1>Hi there, I'm React from Webpack 5.</h1>;
-
-ReactDOM.render(<App />, document.getElementById("app"));
+export default App;

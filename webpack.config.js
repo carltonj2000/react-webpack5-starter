@@ -1,3 +1,4 @@
+const { ModuleFederationPlugin } = require("webpack").container;
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -6,6 +7,12 @@ module.exports = {
   output: { path: path.resolve(__dirname, "dist") },
   resolve: {
     extensions: [".jsx", ".js", ".json"],
+  },
+  devServer: {
+    port: 4001,
+  },
+  output: {
+    publicPath: "http://localhost:4001/",
   },
   module: {
     rules: [
@@ -21,11 +28,17 @@ module.exports = {
     ],
   },
   plugins: [
+    new ModuleFederationPlugin({
+      name: "app1",
+      library: { type: "var", name: "app1" },
+      filename: "remoteEntry.js",
+      exposes: {
+        "./Header": "./src/components/Header",
+      },
+      shared: ["react", "react-dom"],
+    }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "src", "index.html"),
     }),
   ],
-  devServer: {
-    port: 3000,
-  },
 };
